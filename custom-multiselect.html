@@ -1,0 +1,30 @@
+<div class="custom-multiselect" (click)="toggleDropdown()">
+  <div class="placeholder">
+    {{ getSelectedLabels() }}
+    <span class="arrow">&#9662;</span>
+  </div>
+  @if(dropdownOpen){
+    <div class="options" (click)="$event.stopPropagation()">
+      <!-- Select All Checkbox -->
+      <label class="select-all">
+      <input
+        type="checkbox"
+        [checked]="selected.length === options.length"
+        [indeterminate]="selected.length > 0 && selected.length < options.length"
+        (change)="toggleSelectAll($event)" />
+      Select All
+    </label>
+      <hr />
+      @for(option of options; track option) {
+        <label>
+          <input
+            type="checkbox"
+            [checked]="selected.includes(getValue(option))"
+            (change)="onToggleOption($event, option)" />
+          {{ getLabel(option) }}
+        </label>
+      }
+
+    </div>
+  }
+</div>
